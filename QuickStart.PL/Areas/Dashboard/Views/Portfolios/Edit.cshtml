@@ -1,0 +1,84 @@
+﻿@model PortfolioeDetailsvm
+
+@section header {
+    Edit Portfolio
+}
+<div class="container mt-5">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Update Service</h3>
+        </div>
+        <form id="editServiceForm" asp-controller="Services" asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name">Portfolio Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name">
+                        </div>
+                    </div>
+                </div>
+
+                <input asp-for="Id" type="hidden" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="isDelete">Status</label>
+                            <div class="form-check">
+                                <input asp-for="isDelete" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="isDelete">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Data">Portfolio Date</label>
+                            <input asp-for="Data" class="form-control" type="datetime-local">
+                        </div>
+                    </div>
+                </div>
+
+       
+            </div>
+
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            // عندما يتم تقديم النموذج
+            $("#editServiceForm").on("submit", function (e) {
+                e.preventDefault(); // منع التقديم الافتراضي للنموذج
+
+                // عرض نافذة التأكيد
+                Swal.fire({
+                    title: "Do you want to save the changes?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Save",
+                    denyButtonText: `Don't save`,
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // إذا وافق المستخدم على الحفظ، استمر في تقديم النموذج
+                        Swal.fire("Saved!", "", "success").then(() => {
+                            this.submit(); // تابع تقديم النموذج
+                        });
+                    } else if (result.isDenied) {
+                        // إذا اختار عدم الحفظ
+                        Swal.fire("Changes are not saved", "", "info");
+                    }
+                });
+            });
+        });
+    </script>
+}
+   
+

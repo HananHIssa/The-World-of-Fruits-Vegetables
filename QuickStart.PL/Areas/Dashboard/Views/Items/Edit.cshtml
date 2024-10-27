@@ -1,0 +1,92 @@
+﻿@model ItemDetailsvm
+
+@section header {
+    Edit Item
+}
+<div class="container mt-5">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Update Item</h3>
+        </div>
+        <form id="editServiceForm" asp-controller="Items" asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name">Item Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Description">Item Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Enter Description">
+                        </div>
+                    </div>
+                </div>
+
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="ImageName" type="hidden" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="isDelete">Status</label>
+                            <div class="form-check">
+                                <input asp-for="isDelete" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="isDelete">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Data">Item Date</label>
+                            <input asp-for="Data" class="form-control" type="datetime-local">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="image">Upload Image</label>
+                    <input asp-for="image" class="form-control-file" />
+                </div>
+            </div>
+
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts {
+    <script>
+    $(document).ready(function () {
+        $("#editServiceForm").on("submit", function (e) {
+            e.preventDefault(); 
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`,
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // إذا وافق المستخدم على الحفظ، استمر في تقديم النموذج
+                    Swal.fire("Saved!", "", "success").then(() => {
+                        e.target.submit(); // تابع تقديم النموذج الصحيح
+                    });
+                } else if (result.isDenied) {
+                    // إذا اختار عدم الحفظ
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        });
+    });
+</script>
+
+}
+
+

@@ -1,0 +1,158 @@
+﻿
+@model IEnumerable<vmItem>
+
+@section header {
+    Items
+}
+
+@section style {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.1/css/buttons.dataTables.min.css">
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Show All Items</h3>
+        </div>
+
+        <div class="card-body">
+            <table id="ItemsTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Portfolio</th> <!-- تعديل اسم العمود -->
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model)
+                    {
+                        <tr>
+                            <td>@r.Name</td>
+                            <td>@r.PortfolioName</td> <!-- عرض اسم البورتفوليو -->
+                            <td>@r.isDelete</td>
+                            <td>
+                                <a asp-controller="Items" asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a>
+                                <a asp-controller="Items" asp-action="Edit" class="btn btn-success" asp-route-id="@r.Id">Edit</a>
+                                <a href="javascript:void(0)" class="btn btn-danger delete-btn" data-id="@r.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <!-- تحميل jQuery أولاً -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- تحميل مكتبات DataTables -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.print.min.js"></script>
+
+    <!-- إضافة مكتبة PDFMake -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+    <!-- مكتبة SweetAlert -->
+    <script>
+        $(document).ready(function () {
+            // عرض رسالة ترحيبية باستخدام SweetAlert عند تحميل الصفحة
+            Swal.fire({
+                title: '🎉 Welcome! 🎉',
+                text: 'Get ready to explore our services!',
+                icon: 'success',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown' // تأثير دخول
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'  // تأثير خروج
+                },
+                confirmButtonText: 'Start Now!',
+                confirmButtonColor: '#28a745',
+                background: '#fff url(https://example.com/bg-image.png)', // خلفية مخصصة
+                backdrop: `
+                        rgba(0,0,123,0.4)
+                        url("https://example.com/fireworks.gif")
+                        center left
+                        no-repeat
+                    `
+            });
+
+
+            // تهيئة DataTable مع إضافة أزرار التصدير
+            $('#ItemsTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ]
+            });
+        });
+
+        // التعامل مع حذف الخدمة باستخدام SweetAlert
+        document.querySelectorAll(".delete-btn").forEach(function (button) {
+            button.addEventListener("click", async function () {
+                const id = button.dataset.id; 
+
+                // نافذة تأكيد الحذف
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        try {
+                            // إرسال طلب الحذف إلى السيرفر
+                            const response = await fetch(`/Dashboard/Items/Delete/${id}`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            });
+
+                            // التحقق من استجابة السيرفر
+                            if (response.ok) {
+                                // عرض رسالة نجاح الحذف
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your Service has been deleted.",
+                                    icon: "success"
+                                });
+
+                                // إزالة الصف من الجدول
+                                button.closest("tr").remove();
+                            } else {
+                                // في حال فشل الحذف
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Failed to delete the service.",
+                                    icon: "error"
+                                });
+                            }
+                        } catch (error) {
+                            // في حال حدوث خطأ أثناء العملية
+                            Swal.fire({
+                                title: "Error!",
+                                text: "An error occurred while deleting the service.",
+                                icon: "error"
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+

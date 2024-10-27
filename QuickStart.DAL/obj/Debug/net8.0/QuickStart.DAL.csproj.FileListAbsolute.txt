@@ -1,0 +1,13 @@
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.AssemblyInfoInputs.cache
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.AssemblyInfo.cs
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\bin\Debug\net8.0\QuickStart.DAL.deps.json
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\bin\Debug\net8.0\QuickStart.DAL.dll
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\bin\Debug\net8.0\QuickStart.DAL.pdb
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.dll
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\refint\QuickStart.DAL.dll
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.pdb
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\ref\QuickStart.DAL.dll
+C:\Users\hp\Desktop\mvc\QuickStart\QuickStart.DAL\obj\Debug\net8.0\QuickStart.DAL.sourcelink.json
