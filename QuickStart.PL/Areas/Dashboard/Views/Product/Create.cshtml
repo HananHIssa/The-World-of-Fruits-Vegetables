@@ -1,0 +1,82 @@
+﻿@model ProductFormVm
+@section header {
+	Products
+}
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title">Create Service</h3>
+		</div>
+
+		<form asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
+			<div class="card-body">
+				<div class="form-group">
+					<label asp-for="Name">Product Name</label>
+					<input asp-for="Name" class="form-control" placeholder="Enter Name">
+				</div>
+				<div class="form-group">
+					<label asp-for="Description">Product Description</label>
+					<input asp-for="Description" class="form-control textarea" placeholder="Enter Description">
+				</div>
+				<div class="form-group">
+					<label asp-for="Image">Upload Image</label>
+					<input asp-for="Image" class="form-control-file img-input">
+				</div>
+				<div class="form-group">
+					<img id="imgPreview" style="display:none" src="#" />
+				</div>
+
+				@if (Model != null && Model.ImageName != null)
+				{
+					<div class="form-group">
+						<label>Uploaded Image</label><br />
+						<img src="~/images/@Model.ImageName" alt="Uploaded Image" style="max-width: 200px;" />
+					</div>
+				}
+
+			</div>
+
+			<div class="card-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+@section scripts {
+	<script src="https://cdn.tiny.cloud/1/u7idzys4bfby897hsge3j4hu8d5h742xxzwdr89uwlaq5d49/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+	<script>
+		tinymce.init({
+			selector: '.textarea',
+			plugins: [
+				// Core editing features
+				'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+				// Your account includes a free trial of TinyMCE premium features
+				// Try the most popular premium features until Oct 26, 2024:
+				'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+			],
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+			tinycomments_mode: 'embedded',
+			tinycomments_author: 'Author name',
+			mergetags_list: [
+				{ value: 'First.Name', title: 'First Name' },
+				{ value: 'Email', title: 'Email' },
+			],
+			ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		});
+		document.querySelector(".img-input").addEventListener("change", (event) => {
+			const file = event.target.files[0];
+			const imgPreivew = document.querySelector("#imgPreview");
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					imgPreivew.src = e.target.result;
+					imgPreivew.style.display = "block";
+				}
+				reader.readAsDataURL(file);
+			}
+		});
+
+	</script>
+
+}

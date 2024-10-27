@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuickStart.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4271ddadb85eb1ecf08ffe38a47629f4dc343eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5cf0b9c6b2513122cadee8f7e207d480570143d")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuickStart.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuickStart.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

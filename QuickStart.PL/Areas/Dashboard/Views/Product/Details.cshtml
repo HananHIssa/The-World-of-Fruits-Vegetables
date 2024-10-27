@@ -1,0 +1,39 @@
+﻿@model ProductDetailsvm
+@section header {
+    Product Details
+}
+
+<div class="col-md-12 mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Service Details</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@(Model?.Name ?? "N/A")</td>
+                            <td>@Html.Raw(Model?.Description ?? "No description available")</td>
+                            <td>@(Model?.isDelete == true ? "Deleted" : "Not Deleted")</td>
+                            <td>@(Model?.Data.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                            <td>
+                                <img src="~/files/images/@(Model?.ImageName ?? "default-image.jpg")" class="img-thumbnail w-25" alt="Product Image">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

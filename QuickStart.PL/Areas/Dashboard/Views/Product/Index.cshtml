@@ -1,7 +1,7 @@
-﻿@model IEnumerable<vmCatagory>
+﻿@model IEnumerable<vmProduct>
 
 @section header {
-    Catagory
+    Product
 }
 
 @section style {
@@ -12,7 +12,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Show All Catagories</h3>
+            <h3 class="card-title">Show All Products</h3>
         </div>
 
         <div class="card-body">
@@ -31,8 +31,8 @@
                             <td>@r.Name</td>
                             <td>@r.isDelete</td>
                             <td>
-                                <a asp-controller="Catagory" asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a>
-                                <a asp-controller="Catagory" asp-action="Edit" class="btn btn-success" asp-route-id="@r.Id">Edit</a>
+                                <a asp-controller="Product" asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a>
+                                <a asp-controller="Product" asp-action="Edit" class="btn btn-success" asp-route-id="@r.Id">Edit</a>
                                 <a href="javascript:void(0)" class="btn btn-danger delete-btn" data-id="@r.Id">Delete</a>
                             </td>
                         </tr>
@@ -64,17 +64,22 @@
         $(document).ready(function () {
             // عرض رسالة ترحيبية باستخدام SweetAlert عند تحميل الصفحة
             Swal.fire({
-                title: 'Welcome!',
-                text: 'Welcome to the Portfolio page! We are glad to have you here.',
-                imageUrl: '/dashboard/img/portfolio-2048x1224.png', // المسار النسبي الصحيح للصورة
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: 'Portfolio Image',
-                confirmButtonText: 'Let\'s Go!',
+                title: '🎉 Welcome! 🎉',
+                text: 'Get ready to explore our services!',
+                icon: 'success',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown' // تأثير دخول
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'  // تأثير خروج
+                },
+                confirmButtonText: 'Start Now!',
+                confirmButtonColor: '#28a745',
+                background: '#fff url(https://example.com/bg-image.png)', // خلفية مخصصة
                 backdrop: `
                         rgba(0,0,123,0.4)
-                        url("/dashboard/img/portfolio-2048x1224.png") // استخدم الصورة كخلفية
-                        left top
+                        url("https://example.com/fireworks.gif")
+                        center left
                         no-repeat
                     `
             });
@@ -107,7 +112,7 @@
                     if (result.isConfirmed) {
                         try {
                             // إرسال طلب الحذف إلى السيرفر
-                            const response = await fetch(`/Dashboard/Portfolios/Delete/${id}`, {
+                            const response = await fetch(`/Dashboard/Services/Delete/${id}`, {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json"

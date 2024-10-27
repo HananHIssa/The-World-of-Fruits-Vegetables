@@ -23,10 +23,10 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="fw-bold">@Model.Name</td>
-							<td>@Html.Raw(@Model.Description)</td>
-							<td>@(Model.isDelete ? "Deleted" : "Not Deleted")</td>
-							<td>@Model.Data.ToString("dd/MM/yyyy")</td>
+							<td>@(Model?.Name ?? "N/A")</td>
+							<td>@Html.Raw(Model?.Description ?? "No description available")</td>
+							<td>@(Model?.isDelete == true ? "Deleted" : "Not Deleted")</td>
+							<td>@(Model?.Data.ToString("dd/MM/yyyy") ?? "N/A")</td>
 							<td>
 								<img src="~/files/images/@Model.ImageName" class="img-thumbnail w-25" alt="Service Image">
 							</td>

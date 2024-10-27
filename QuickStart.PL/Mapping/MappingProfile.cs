@@ -19,6 +19,14 @@ namespace QuickStart.PL.Mapping
             CreateMap<ItemsFormVm, Item>().ReverseMap();
             CreateMap<Item, vmItem>().ReverseMap();
             CreateMap<Item, ItemDetailsvm>().ReverseMap();
-        }
+
+           CreateMap<ProductFormVm, Product>().ReverseMap();
+            CreateMap<Product, vmProduct>().ReverseMap();
+           CreateMap<Product, ProductDetailsvm>().ReverseMap();
+
+			CreateMap<CatagoryFormVm, Catagory>().ReverseMap();
+			CreateMap<Product, vmCatagory>().ReverseMap();
+			CreateMap<Catagory, CatagoryDetailsvm>().ReverseMap();
+		}
 	}
 }
